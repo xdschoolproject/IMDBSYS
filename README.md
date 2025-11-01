@@ -1,5 +1,6 @@
 ## Setting Up the Virtual Environment (Windows)
-
+   **Note:** This step is needed after cloning the repository because the virtual environment contains all the necessary dependencies that the project requires.
+   
 ### 1. Create a Virtual Environment
    Open **Command Prompt** or **PowerShell**, and navigate to your cloned project folder:
    ```bash
@@ -35,7 +36,7 @@ This will install all the necessary Python packages listed in `requirements.txt`
 <br>
 
 ## Running the Django Web Application
-   Note that this command will only run code written in **django** and will not include **streamlit** code. You need to run both servers in order to run both applications together.
+   **Note:** This will only run code written in **django** and will not include **streamlit** code. You need to run both servers in order to run both applications together.
    
 ### 1. Activate the Virtual Environment
    Open **Command Prompt** or **PowerShell**, and navigate to your project directory. Then, activate the virtual environment:
