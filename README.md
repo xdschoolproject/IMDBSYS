@@ -32,4 +32,33 @@ pip install -r requirements.txt
 
 This will install all the necessary Python packages listed in `requirements.txt` to your virtual environment.
 
+<br>
+
+## Running the Django Web Application
+   Note that this command will only run code written in **django** and will not include **streamlit** code. You need to run both servers in order to run both applications together.
+   
+### 1. Activate the Virtual Environment
+   Open **Command Prompt** or **PowerShell**, and navigate to your project directory. Then, activate the virtual environment:
+   ```bash
+   cd path\to\your\cloned\repo\test
+   venv\Scripts\activate
 ````
+
+### 2. Apply Database Migrations
+
+Run the following command to apply database migrations:
+
+```bash
+python manage.py migrate
+```
+Note: You don't need to run migrate every time you start the server—just when there are changes to your models or new migrations.
+
+### 3. Run the Django Development Server
+
+Start the server with:
+
+```bash
+python manage.py runserver
+```
+
+By default, it will be accessible at `http://127.0.0.1:8000/`.
