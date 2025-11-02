@@ -17,7 +17,7 @@ django.setup()
 from stock_analysis_back_end.models import Stock
 
 # Get the path to the db.sqlite3 file in your Django project
-db_path = os.path.join(os.path.dirname(__file__), '..', '..', 'db.sqlite3')  # Moves 2 levels up to access the db.sqlite3 file
+db_path = os.path.join(os.path.dirname(__file__), '..', 'db.sqlite3')  # Moves 2 levels up to access the db.sqlite3 file
 conn = sqlite3.connect(db_path)  # Now it connects to the correct SQLite file
 
 # --- App Title ---

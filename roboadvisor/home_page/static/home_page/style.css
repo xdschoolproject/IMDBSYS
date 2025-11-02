@@ -1,0 +1,61 @@
+/* Add general page padding and font styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+}
+
+/* Style the card content */
+.card {
+    border: none;
+    border-radius: 8px;
+    background-color: white;
+    transition: transform 0.2s ease-in-out;
+}
+
+.card-img-top {
+    border-radius: 8px 8px 0 0;
+    object-fit: cover;
+    height: 180px;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title a {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    transition: color 0.2s ease;
+}
+
+/* Hover effects for titles */
+.card-title a:hover {
+    color: #007bff;
+}
+
+/* Hover effect for cards */
+.card:hover {
+    transform: translateY(-10px);  /* Lifts the card slightly */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);  /* Subtle shadow */
+}
+
+/* Display summaries in a more readable format */
+.card-text {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+/* Bottom small text styling */
+small {
+    color: #888;
+}
+
+/* Responsive design tweaks */
+@media (max-width: 768px) {
+    .card-img-top {
+        height: 150px;
+    }
+}
