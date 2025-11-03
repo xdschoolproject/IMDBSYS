@@ -19,11 +19,11 @@ project_folder/
 │
 ├── venv/                         # Virtual environment folder Should be Here
 │
-├── roboadvisor/                  # This is the main project folder (Django, Streamlit, database are here)
+├── roboadvisor/         
 │
-├── db.sqlite3                    # This is not the databse file. This file has bugs. 
+├── db.sqlite3                  
 │
-└── requirements.txt              # File for listing project dependencies
+└── requirements.txt            
 │
 └──home_page/                     
 │
