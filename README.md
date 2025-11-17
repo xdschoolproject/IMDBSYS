@@ -40,7 +40,7 @@ project_folder/
 │
 └── requirements.txt            
 │
-└──home_page/                     
+└── home_page/                     
 │
 └── stock_analysis_back_end/  
 │
@@ -83,7 +83,7 @@ pip freeze
 
 ## Running the Django Web Application without Streamlit
 
-### 1. Activate the Virtual Environment ()
+### 1. Activate the Virtual Environment (If not yet)
    Open **terminal** in **vscode**, and navigate to your project folder:
    ```bash
    cd path\to\your\cloned\repo\
@@ -116,7 +116,9 @@ By default, it will be accessible at `http://127.0.0.1:8000/`. Open your browser
 <br>
 
 ## Running the Streamlit and Django Web Application Together
-### 1. Activate the Virtual Environment
+**Note:** We need to run both **django** and **streamlit** server in the terminal. You need to run both servers in order to run both web applications together.
+
+### 1. Activate the Virtual Environment (If not yet)
    Open **terminal** in **vscode**, and navigate to your project folder:
    ```bash
    cd path\to\your\cloned\repo\test
@@ -132,9 +134,8 @@ Run the following command to apply database migrations:
 ```bash
 python manage.py migrate
 ```
-**Note:** We need to run both **django** and **streamlit** server in the terminal. You need to run both servers in order to run both web applications together.
 
-### 3. Run the Streamlit Server First
+### 3. First Run the Streamlit Server
 
 Navigate to the stock_analysis_front_end folder:
 ```bash
@@ -144,7 +145,7 @@ Start the server with:
 ```bash
 streamlit run stock_analysis_app.py 
 ```
-This should open the stock analysis page in your browser. You can close the browser after openning but don't exit the server in the terminal.
+This will open the stock analysis page in your browser. You can close the browser after openning but don't exit the server in the terminal.
 
 ### 4. Open a new tab in the terminal in vscode and activate the Virtual Environment in the new tab
    Open a new tab in the **terminal** in **vscode**, and navigate to your project folder (in vscode terminal click the "+" button):
@@ -155,7 +156,7 @@ This should open the stock analysis page in your browser. You can close the brow
    ```bash
    venv\Scripts\Activate.ps1
 ````
-After activation, you should have two terminal tabs in vscode. The `(venv)` in the command prompt, indicates that the virtual environment is active.
+After activation, you should have two terminal tabs in vscode with `(venv)` in the command prompt, indicating that both virtual environments are active.
 
 ### 5. Run the Django Development Server Second
 Navigate to the main roboadvisor folder (make sure you are in the folder that has manage.py file):
