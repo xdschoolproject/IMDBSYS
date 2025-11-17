@@ -1,5 +1,4 @@
 ## Setting Up the Virtual Environment (Windows)
-   **Note:** This step is needed after cloning the repository because the virtual environment contains all the necessary dependencies that the project requires.
 
 ### 1. Download python 3.13.9
   Open your browser and download python 3.13.9. Enter this in the URL
@@ -14,9 +13,11 @@
   git clone -b master https://github.com/xdschoolproject/roboadvisor.git
 ````
   After cloning you should see roboadvisor folder.
+
   
 ### 3. Create a Virtual Environment
-   In the **terminal** in **vscode**, navigate to your cloned roboadvisor folder:
+   **Note:** This step is needed after cloning the repository because the virtual environment contains all the necessary dependencies that the project requires.
+   <br>In the **terminal** in **vscode**, navigate to your cloned roboadvisor folder:
    ```bash
    cd path\to\your\cloned\repo\test
 ````
@@ -80,7 +81,7 @@ pip freeze
 
 <br>
 
-## Running the Django Web Application
+## Running the Django Web Application without Streamlit
 
 ### 1. Activate the Virtual Environment ()
    Open **terminal** in **vscode**, and navigate to your project folder:
@@ -91,7 +92,7 @@ pip freeze
    ```bash
    venv\Scripts\Activate.ps1
 ````
-### 2. Apply Database Migrations
+### 2. Apply Database Migrations 
 
 Run the following command to apply database migrations:
 
@@ -108,7 +109,7 @@ Start the server with:
 python manage.py runserver
 ```
 
-By default, it will be accessible at `http://127.0.0.1:8000/`.
+By default, it will be accessible at `http://127.0.0.1:8000/`. Open your browser and enter `http://127.0.0.1:8000/` in the URL
 
 **Note:** This will only run code written in **django** and will not include **streamlit** code. You need to run both servers in order to run both applications together.
 
@@ -165,4 +166,4 @@ Start the server with:
 ```bash
 python manage.py runserver
 ```
-By default, it will be accessible at `http://127.0.0.1:8000/`. Open the browser and enter `http://127.0.0.1:8000/` in the URL
+By default, it will be accessible at `http://127.0.0.1:8000/`. Open the browser and enter `http://127.0.0.1:8000/` in the URL.
