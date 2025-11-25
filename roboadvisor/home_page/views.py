@@ -44,7 +44,7 @@ def portfolio(request):
 
 # 5. STOCKS / ASSETS VIEW
 def stocks(request):
-    return render(request, 'home_page/stocks.html')
+    return render(request, 'stock_analysis/stocks.html')
 
 # 6. MANAGE ACCOUNT VIEW (NEWLY ADDED)
 def account(request):

@@ -1,0 +1,220 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stocks & Assets</title>
+    
+    <!-- Load Main Styles -->
+    <link rel="stylesheet" href="{% static 'home_page/style.css' %}">
+    <!-- Load Stocks Styles -->
+    <link rel="stylesheet" href="{% static 'stock_analysis/stocks.css' %}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+
+<div class="parent">
+
+    <!-- =========================
+         SIDEBAR (EXACT COPY FROM AI ADVISOR)
+         ========================= -->
+    <div class="div9 sidebar">
+        <div class="profile-section">
+            <div class="profile-pic"></div>
+            <span class="profile-name">Bryce Mendez</span>
+        </div>
+
+        <div class="search-wrapper">
+            <input type="text" class="search-bar" placeholder="Search...">
+        </div>
+
+        <div class="menu-label">MENU</div>
+        
+        <nav class="nav-links">
+            <!-- 1. Overview -->
+            <a href="{% url 'home' %}" class="nav-item">
+                <img src="{% static 'home_page/images/overviewbutton.png' %}" class="nav-icon">
+                Overview
+            </a>
+            
+            <!-- 2. AI Advisor -->
+            <a href="{% url 'ai_advisor' %}" class="nav-item">
+                <img src="{% static 'home_page/images/aibutton.png' %}" class="nav-icon">
+                AI Advisor
+            </a>
+            
+            <!-- 3. My Portfolio -->
+            <a href="{% url 'portfolio' %}" class="nav-item">
+                <img src="{% static 'home_page/images/portfoliobutton.png' %}" class="nav-icon">
+                My Portfolio
+            </a>
+
+            <!-- 4. My Assets (ACTIVE - This is the only change) -->
+            <a href="#" class="nav-item active">
+                <img src="{% static 'home_page/images/assetsbutton.png' %}" class="nav-icon">
+                Stocks
+            </a>
+
+            <!-- 5. Activity Log -->
+            <a href="{% url 'account' %}" class="nav-item">
+                <img src="{% static 'home_page/images/logbutton.png' %}" class="nav-icon">
+                Manage Account
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">ROBOADVISOR</div>
+    </div>
+
+    <!-- =========================
+         HEADER (EXACT COPY FROM AI ADVISOR)
+         ========================= -->
+    <div class="div5 header-section">
+        <div class="header-left">
+            <span class="header-label">MENU</span>
+            <span class="header-divider">/</span>
+            <!-- Title changed to match page -->
+            <span class="header-current">Stocks & Assets</span>
+        </div>
+        <div class="header-right">
+            <button class="icon-btn" id="theme-toggle">
+                <img src="{% static 'home_page/images/night.png' %}" alt="Theme">
+            </button>
+            <button class="icon-btn">
+                <img src="{% static 'home_page/images/history.png' %}" alt="History">
+            </button>
+            <button class="icon-btn">
+                <img src="{% static 'home_page/images/web.png' %}" alt="Web">
+            </button>
+        </div>
+    </div>
+
+    <!-- =========================
+         CONTENT AREA (Stocks Grid)
+         ========================= -->
+<div class="stocks-grid">
+        <div class="pf-card box-1">
+            <h3>Stock Analysis</h3>
+            <canvas id="stockChart" width="400" height="200"></canvas>
+        </div>
+
+        
+        <div class="pf-card box-2 watchlist-card">
+            <h3 class="watchlist-title">Watchlist</h3>
+
+            <form method="POST" class="watchlist-form">
+                {% csrf_token %}
+                <div class="control-group">
+                    <label for="ticker">Stock:</label>
+                    <select name="ticker" id="ticker" class="stock-input" required>
+                        <option value="">--Choose a stock--</option>
+                        <option value="AAPL">Apple (AAPL)</option>
+                        <option value="TSLA">Tesla (TSLA)</option>
+                        <option value="MSFT">Microsoft (MSFT)</option>
+                        <option value="AMZN">Amazon (AMZN)</option>
+                        <option value="NVDA">Nvidia (NVDA)</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="start_date">Start Date:</label>
+                    <input type="date" name="start_date" id="start_date" class="stock-input" required>
+                </div>
+
+                <div class="control-group">
+                    <label for="end_date">End Date:</label>
+                    <input type="date" name="end_date" id="end_date" class="stock-input" required>
+                </div>
+
+                <button type="submit" class="get-data-btn">Add</button>
+            </form>
+        </div>
+
+
+        <!-- New Added Stocks Section (Table) -->
+        <div class="pf-card box-3 added-stocks-card">
+            <h3>Added Stocks</h3>
+            <table class="added-stocks-table">
+                <thead>
+                    <tr>
+                        <th>Ticker</th>
+                        <th>Date Range</th>
+                        <th>Close Price</th>
+                        <th>Volume</th> <!-- New column for Volume -->
+                        <th>High Price</th> <!-- New column for High Price -->
+                        <th>Low Price</th> <!-- New column for Low Price -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stock in stocks %}
+                    <tr>
+                        <td>{{ stock.ticker }}</td>
+                        <td>{{ stock.date }}</td>
+                        <td>{{ stock.close_price }}</td>
+                        <td>{{ stock.volume }}</td> <!-- Display Volume -->
+                        <td>{{ stock.high_price }}</td> <!-- Display High Price -->
+                        <td>{{ stock.low_price }}</td> <!-- Display Low Price -->
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6">No stocks added yet.</td> <!-- Update colspan to 6 for new columns -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>  
+</div>
+
+<script>
+    const themeBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    if (localStorage.getItem('theme') === 'light') {
+        body.classList.add('light-mode');
+    }
+
+    themeBtn.addEventListener('click', () => {
+        body.classList.toggle('light-mode');
+        if (body.classList.contains('light-mode')) {
+            localStorage.setItem('theme', 'light');
+        } else {
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+</script>
+
+<script>
+const ctx = document.getElementById('stockChart').getContext('2d');
+
+const stockChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: {{ chart_labels|safe }},
+        datasets: [{
+            label: 'Close Price',
+            data: {{ chart_data|safe }},
+            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            fill: true,
+            tension: 0.1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: true }
+        },
+        scales: {
+            x: { title: { display: true, text: 'Date' } },
+            y: { title: { display: true, text: 'Close Price' } }
+        }
+    }
+});
+</script>
+
+
+</body>
+</html>

@@ -37,7 +37,7 @@ INSTALLED_APPS = [
 
     # Your apps
     'home_page',
-    'stock_analysis_back_end',
+    'stock_analysis',
 ]
 
 MIDDLEWARE = [
@@ -105,6 +105,7 @@ STATIC_URL = '/static/'
 # Optional: if you have a global project-level static folder
 STATICFILES_DIRS = [
     BASE_DIR / "static",
+    BASE_DIR / "stock_analysis/static",    # for stocks.css
 ]
 
 # Optional: for production
