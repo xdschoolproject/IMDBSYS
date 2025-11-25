@@ -1,0 +1,295 @@
+/* =========================================
+   0. GLOBAL RESET & VARS
+   ========================================= */
+:root {
+    --neon-green: #a3e635; 
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; 
+    background-color: #000;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff;
+}
+
+/* =========================================
+   1. SIDEBAR (EXACT COPY FROM AI ADVISOR)
+   ========================================= */
+.div9.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 20%; 
+    height: 100vh;
+    z-index: 100;
+    overflow-y: auto; 
+    background-color: #111; 
+    border-right: 1px solid #222;
+    padding: 30px; 
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Profile */
+.profile-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+.profile-pic {
+    width: 40px; height: 40px;
+    background-color: #555; border-radius: 50%;
+}
+.profile-name { 
+    font-weight: 600; font-size: 1rem; color: #ffffff; 
+}
+
+/* Search Bar (Matches AI Advisor Logic) */
+.search-wrapper { margin-bottom: 30px; }
+.search-bar {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: #fff !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 8px;
+    padding: 10px 15px;
+    outline: none;
+    box-sizing: border-box;
+}
+.div9.sidebar .search-bar::placeholder { color: #ccc !important; }
+
+/* Menu Label */
+.menu-label { font-size: 0.8rem; color: #fff; margin-bottom: 15px; letter-spacing: 1px; }
+
+/* Nav Links Structure */
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex-grow: 1;
+}
+
+.div9.sidebar .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    
+    /* --- COPIED FROM AI ADVISOR CSS --- */
+    color: #ffffff !important;
+    transition: all 0.3s ease;
+}
+
+/* Inactive Icon State */
+.div9.sidebar .nav-item img {
+    width: 20px; height: 20px;
+    /* White icons */
+    filter: brightness(0) invert(1) !important;
+    opacity: 1 !important;
+}
+
+/* --- ACTIVE STATE (EXACTLY AS REQUESTED) --- */
+.div9.sidebar .nav-item.active {
+    background-color: var(--neon-green) !important; 
+    color: #000000 !important;            
+    border-radius: 30px !important;       
+    box-shadow: 0 0 15px rgba(163, 230, 53, 0.4) !important;
+    border-color: var(--neon-green) !important;
+    font-weight: 700;
+}
+
+/* Active Icon State (Black) */
+.div9.sidebar .nav-item.active img {
+    filter: brightness(0) !important; 
+}
+
+.sidebar-footer { margin-top: auto; font-weight: bold; letter-spacing: 2px; color: #fff; }
+
+/* =========================================
+   2. HEADER (EXACT COPY FROM AI ADVISOR)
+   ========================================= */
+.div5.header-section {
+    position: fixed;
+    top: 0;
+    left: 20%; 
+    width: 80%; 
+    height: 80px;
+    z-index: 90;
+    background-color: #000;
+    border-bottom: 1px solid #222;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.header-left { font-size: 1.2rem; display: flex; align-items: center; }
+.header-label { color: #888; }
+.header-divider { margin: 0 10px; color: #555; }
+.header-current { font-weight: 600; color: #fff; }
+
+.header-right { display: flex; gap: 15px; }
+
+/* Icon Buttons */
+.icon-btn {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    border-radius: 50%;
+    width: 40px; height: 40px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.3s;
+}
+.icon-btn:hover { background: rgba(255,255,255,0.2); }
+.icon-btn img { 
+    width: 20px; height: 20px; 
+    filter: brightness(0) invert(1) !important; 
+}
+
+/* =========================================
+   3. PARENT & STOCKS GRID
+   ========================================= */
+.parent {
+    display: block; 
+    margin-left: 20%; 
+    margin-top: 80px; 
+    height: calc(100vh - 80px); 
+    overflow-y: auto;
+    width: 80%; 
+    background-color: #000;
+}
+
+.stocks-grid {
+    display: grid;
+    grid-template-columns: 2.5fr 1fr;
+    grid-template-rows: 55vh 35vh; 
+    gap: 20px;
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.pf-card {
+    background-color: #161618;
+    border: 1px solid #333;
+    border-radius: 20px;
+    padding: 20px;
+    color: #fff;
+    overflow-y: auto;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.pf-card h3 { margin-top: 0; color: var(--neon-green); }
+
+.box-1 { grid-column: 1 / 2; grid-row: 1 / 2; }
+.box-2 { grid-column: 2 / 3; grid-row: 1 / 2; }
+.box-3 { grid-column: 1 / 3; grid-row: 2 / 3; }
+
+/* Light Mode Logic */
+body.light-mode { background-color: #f0f2f5; color: #000; }
+body.light-mode .parent { background-color: #f0f2f5; }
+body.light-mode .div5.header-section { background-color: #fff; border-bottom: 1px solid #ddd; }
+body.light-mode .header-current { color: #000; }
+body.light-mode .pf-card { background-color: #fff; border-color: #ddd; color: #000; }
+body.light-mode .icon-btn img { filter: brightness(0) !important; }
+
+/* =========================================
+   STOCK ANALYSIS CARD STYLES
+   ========================================= */
+
+/* Remove default H3 styling from the previous layout if it conflicts */
+.box-1 h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #fff;
+    font-weight: 700;
+}
+
+.stock-analysis-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.analysis-header {
+    display: flex;
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 15px;
+}
+
+.analysis-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.control-group label {
+    color: #666; /* Dark grey text for labels */
+    font-size: 0.9rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* The Inputs (Ticker, Date) */
+.stock-input {
+    background-color: #e6e6e6; /* Light grey background */
+    color: #000;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    outline: none;
+    cursor: pointer;
+}
+
+/* Customizing the Date picker icon color (works in Chrome/Edge) */
+.stock-input::-webkit-calendar-picker-indicator {
+    filter: invert(0); /* Keeps icon dark */
+    cursor: pointer;
+}
+
+/* The Neon Green Button */
+.get-data-btn {
+    background-color: var(--neon-green); /* Uses your existing variable */
+    color: #000;
+    font-weight: 700;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+} 
+
+.get-data-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 10px rgba(163, 230, 53, 0.4);
+}
+
+/* The Empty Chart Area Below */
+.chart-area {
+    flex-grow: 1;
+    width: 100%;
+    /* Optional: subtle placeholder styling or background */
+    border-radius: 8px;
+    min-height: 200px; 
+}

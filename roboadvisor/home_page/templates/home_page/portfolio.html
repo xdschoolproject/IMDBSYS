@@ -1,0 +1,160 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="{% static 'home_page/portfolio.css' %}">
+</head>
+<body>
+
+<div class="parent">
+
+    <!-- =========================
+         SIDEBAR (EXACT COPY FROM STOCKS)
+         ========================= -->
+    <div class="div9 sidebar">
+        <div class="profile-section">
+            <div class="profile-pic"></div>
+            <span class="profile-name">Bryce Mendez</span>
+        </div>
+
+        <div class="search-wrapper">
+            <input type="text" class="search-bar" placeholder="Search...">
+        </div>
+
+        <div class="menu-label">MENU</div>
+        
+        <nav class="nav-links">
+            <!-- 1. Overview -->
+            <a href="{% url 'home' %}" class="nav-item">
+                <img src="{% static 'home_page/images/overviewbutton.png' %}" alt="icon" class="nav-icon">
+                Overview
+            </a>
+
+            <!-- 2. AI Advisor -->
+            <a href="{% url 'ai_advisor' %}" class="nav-item">
+                <img src="{% static 'home_page/images/aibutton.png' %}" alt="icon" class="nav-icon">
+                AI Advisor
+            </a>
+
+            <!-- 3. My Portfolio (ACTIVE - This is the only change) -->
+            <a href="#" class="nav-item active">
+                <img src="{% static 'home_page/images/portfoliobutton.png' %}" class="nav-icon">
+                My Portfolio
+            </a>
+
+            <!-- 4. My Assets (Inactive here) -->
+            <a href="{% url 'stocks' %}" class="nav-item">
+                <img src="{% static 'home_page/images/assetsbutton.png' %}" alt="icon" class="nav-icon">
+                Stocks
+            </a>
+            
+            <!-- 5. Activity Log -->
+            <a href="{% url 'account' %}" class="nav-item">
+                <img src="{% static 'home_page/images/logbutton.png' %}" class="nav-icon">
+                Manage Account
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">ROBOADVISOR</div>
+    </div>
+
+    <!-- =========================
+         HEADER (EXACT COPY FROM STOCKS)
+         ========================= -->
+    <div class="div5 header-section">
+        <div class="header-left">
+            <!-- Neon Green MENU label -->
+            <span class="header-label neon-text">MENU</span>
+            <span class="header-divider">/</span>
+            <!-- Title changed to match page -->
+            <span id="header-title" class="header-current">My Portfolio</span>
+        </div>
+        <div class="header-right">
+            <button class="icon-btn" id="theme-toggle">
+                <img src="{% static 'home_page/images/night.png' %}" alt="Theme">
+            </button>
+            <button class="icon-btn">
+                <img src="{% static 'home_page/images/history.png' %}" alt="History">
+            </button>
+            <button class="icon-btn">
+                <img src="{% static 'home_page/images/web.png' %}" alt="Web">
+            </button>
+        </div>
+    </div>
+    
+    <!-- =========================
+         MAIN CONTENT BOX (Portfolio Specific Content)
+         ========================= -->
+    <div class="portfolio-main-content">
+        
+        <!-- 1. TOP LEFT: Summary -->
+        <div class="pf-card summary-card">
+            <div class="summary-header">
+                <span class="summary-label">My Portfolio</span>
+                <button class="edit-btn">
+                    <img src="{% static 'home_page/images/edit.png' %}" alt="Edit">
+                </button>
+            </div>
+
+            <div class="summary-value">₱485,920</div>
+            <div class="summary-date">Est. 11/24/25</div>
+
+            <div class="summary-actions">
+                <button class="action-btn btn-black">New Position</button>
+                <button class="action-btn btn-light">Rebalance</button>
+            </div>
+        </div>
+
+        <!-- 2. TOP RIGHT: Risk Level -->
+        <div class="pf-card risk-card">
+            <div class="risk-label">Risk Level: <strong>Conservative</strong></div>
+            <div class="robo-container">
+                <img src="{% static 'home_page/images/robo.png' %}" alt="Robo Advisor" class="robo-img">
+            </div>
+        </div>
+
+        <!-- 3. BOTTOM: Holdings Table -->
+        <div class="pf-card table-card">
+            <div class="table-tabs">
+                <span class="tab active">Asset</span>
+                <span class="tab">Sector</span>
+                <span class="tab">Holdings</span>
+                <span class="tab">Price Data</span>
+                <span class="tab">Performance (P/L)</span>
+                <span class="tab">Todays Move</span>
+                <span class="tab">Risk Rating</span>
+            </div>
+
+            <div class="table-responsive">
+                <table class="holdings-table">
+                    <!-- Table data goes here -->
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const themeBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    if (localStorage.getItem('theme') === 'light') {
+        body.classList.add('light-mode');
+    }
+
+    themeBtn.addEventListener('click', () => {
+        body.classList.toggle('light-mode');
+        if (body.classList.contains('light-mode')) {
+            localStorage.setItem('theme', 'light');
+        } else {
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+</script>
+
+</body>
+</html>

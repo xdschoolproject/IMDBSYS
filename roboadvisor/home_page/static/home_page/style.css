@@ -1,61 +1,434 @@
-/* Add general page padding and font styling */
+/* =========================================
+   0. THEME VARIABLES & RESET
+   ========================================= */
+:root {
+    /* --- DARK MODE (DEFAULT) --- */
+    --bg-body: #000000;
+    --bg-sidebar: #000000;
+    --bg-header: #000000;
+    --bg-card: #1e2024;
+    --bg-content: #1e1e1e;
+    --bg-input: #1a1a1a;
+    
+    /* Text */
+    --text-main: #ffffff;
+    --text-muted: #888888;
+    --text-dark: #000000;
+
+    /* Borders & Accents */
+    --border-color: #333333; 
+    --neon-green: #a3e635;
+    
+    /* Special */
+    --stat-gradient: linear-gradient(180deg, #181818 20%, #7ec242 100%);
+    --shadow-base: rgba(0,0,0,0.5);
+    --shadow-hover: rgba(0,0,0,0.8);
+    --stock-bg: #1a1b1f; 
+}
+
+body.light-mode {
+    /* --- LIGHT MODE OVERRIDES --- */
+    --bg-body: #f0f2f5;
+    --bg-sidebar: #ffffff;
+    --bg-header: #ffffff;
+    --bg-card: #ffffff;
+    --bg-content: #ffffff;
+    --bg-input: #f0f0f0;
+
+    /* Text */
+    --text-main: #000000;
+    --text-muted: #555555;
+    
+    /* Borders */
+    --border-color: #e0e0e0;
+
+    /* Special */
+    --stat-gradient: linear-gradient(180deg, #ffffff 20%, #a3e635 100%);
+    --shadow-base: rgba(0,0,0,0.1);
+    --shadow-hover: rgba(0,0,0,0.2);
+    --stock-bg: #ffffff; 
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
-    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    height: 100vh;
+    overflow: hidden; 
+    transition: background-color 0.3s, color 0.3s;
 }
 
-/* Style the card content */
-.card {
-    border: none;
+/* =========================================
+   1. MAIN LAYOUT
+   ========================================= */
+
+.parent {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    grid-template-rows: repeat(9, auto); 
+    
+    margin-left: 20%; 
+    width: 80%;
+    margin-top: 80px; 
+    height: calc(100vh - 80px); 
+    
+    overflow-y: auto;   
+    padding: 50px;  /* <-- increased padding */
+    grid-gap: 20px;
+}
+
+/* =========================================
+   2. FIXED SIDEBAR - BLACK BACKGROUND FIX
+   ========================================= */
+.div9.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 20%; 
+    height: 100vh;
+    z-index: 100;
+    overflow-y: auto; 
+    
+    background-color: #000000;
+    background: #000000;
+    
+    border-right: 1px solid #222;
+    padding: 30px; 
+    box-sizing: border-box; 
+    display: flex;
+    flex-direction: column;
+}
+
+/* Light mode sidebar override */
+body.light-mode .div9.sidebar {
+    background-color: #ffffff;
+    background: #ffffff;
+}
+
+/* Profile */
+.profile-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+.profile-pic {
+    width: 40px; height: 40px;
+    background-color: #555; border-radius: 50%;
+}
+.profile-name { 
+    font-weight: 600; font-size: 1rem; color: #ffffff; 
+}
+
+body.light-mode .profile-name {
+    color: #000000;
+}
+
+/* Search Bar */
+.search-wrapper { margin-bottom: 30px; }
+.search-bar {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 8px;
-    background-color: white;
-    transition: transform 0.2s ease-in-out;
+    padding: 10px 15px;
+    outline: none;
+    box-sizing: border-box;
+}
+.search-bar::placeholder { color: #ccc; }
+
+body.light-mode .search-bar {
+    background: #f0f0f0;
+    color: #000;
+    border: 1px solid #e0e0e0;
 }
 
-.card-img-top {
-    border-radius: 8px 8px 0 0;
-    object-fit: cover;
-    height: 180px;
+body.light-mode .search-bar::placeholder {
+    color: #666;
 }
 
-.card-body {
-    padding: 20px;
-}
-
-.card-title a {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #333;
-    transition: color 0.2s ease;
-}
-
-/* Hover effects for titles */
-.card-title a:hover {
-    color: #007bff;
-}
-
-/* Hover effect for cards */
-.card:hover {
-    transform: translateY(-10px);  /* Lifts the card slightly */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);  /* Subtle shadow */
-}
-
-/* Display summaries in a more readable format */
-.card-text {
-    font-size: 0.95rem;
-    color: #555;
+/* Menu Label */
+.menu-label {
+    font-size: 0.8rem;
+    color: #fff;
     margin-bottom: 15px;
+    letter-spacing: 1px;
 }
 
-/* Bottom small text styling */
-small {
-    color: #888;
+body.light-mode .menu-label {
+    color: #000;
 }
 
-/* Responsive design tweaks */
-@media (max-width: 768px) {
-    .card-img-top {
-        height: 150px;
-    }
+/* Nav Links - Spacing Logic */
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+    flex-grow: 1;
+}
+
+.div9.sidebar .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    color: #ffffff;
+}
+
+body.light-mode .div9.sidebar .nav-item {
+    color: #000000;
+}
+
+/* Icons - Normal State */
+.div9.sidebar .nav-item img {
+    width: 20px; 
+    height: 20px;
+    filter: brightness(0) invert(1);
+    opacity: 1;
+    margin: 0;
+    object-fit: contain;
+}
+
+body.light-mode .div9.sidebar .nav-item img {
+    filter: brightness(0);
+}
+
+/* ACTIVE STATE */
+.div9.sidebar .nav-item.active {
+    background-color: var(--neon-green);
+    color: #000000;
+    box-shadow: 0 0 15px rgba(163, 230, 53, 0.4);
+    font-weight: 700;
+}
+
+/* Active Icon turns black */
+.div9.sidebar .nav-item.active img {
+    filter: brightness(0);
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #fff;
+    text-align: center;
+}
+
+body.light-mode .sidebar-footer {
+    color: #000;
+}
+
+/* =========================================
+   3. FIXED HEADER
+   ========================================= */
+.div5.header-section {
+    position: fixed;
+    top: 0;
+    left: 20%; 
+    width: 80%; 
+    height: 80px;
+    z-index: 90;
+    background-color: #000;
+    border-bottom: 1px solid #222;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+body.light-mode .div5.header-section {
+    background-color: #fff;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.header-left { font-size: 1.2rem; display: flex; align-items: center; }
+
+/* Header Menu Label is Neon Green */
+.header-label.neon-text { 
+    color: var(--neon-green); 
+    font-weight: 600; 
+    letter-spacing: 1px;
+}
+
+.header-divider { margin: 0 10px; color: #555; }
+.header-current { font-weight: 600; color: #fff; }
+
+body.light-mode .header-current {
+    color: #000;
+}
+
+.header-right { 
+    display: flex; 
+    gap: 15px; 
+    align-items: center;
+}
+
+/* Icons have NO circle background */
+.icon-btn {
+    background: transparent; 
+    border: none;
+    width: 40px; 
+    height: 40px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: opacity 0.3s;
+    padding: 0;
+}
+.icon-btn:hover { opacity: 0.7; }
+
+.icon-btn img { 
+    width: 20px; height: 20px; 
+    filter: brightness(0) invert(1);
+}
+
+body.light-mode .icon-btn img {
+    filter: brightness(0);
+}
+
+/* =========================================
+   4. STAT CARDS (DIV 1-4) & P/L (DIV 6-7)
+   ========================================= */
+
+/* --- STAT CARDS (Div 1-4) --- */
+.stat-card {
+    height: 160px;
+    padding: 15px; 
+    background: var(--stat-gradient);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: none; 
+    box-shadow: 0 4px 10px var(--shadow-base);
+    color: var(--text-main);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.div1 { grid-area: 1 / 1 / 3 / 2; }
+.div2 { grid-area: 1 / 2 / 3 / 3; }
+.div3 { grid-area: 1 / 3 / 3 / 4; }
+.div4 { grid-area: 1 / 4 / 3 / 5; }
+
+.stat-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 30px var(--shadow-hover), 0 0 20px rgba(163, 230, 53, 0.5);
+    z-index: 10;
+}
+
+.card-top {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #e0e0e0; 
+    margin-bottom: 5px;
+}
+body.light-mode .card-top { color: #333; }
+
+.card-value, .sub-value { font-weight: 800; margin: 10px 0; line-height: 1.1; }
+.card-value { font-size: 3rem; }
+.sub-value { font-size: 2rem; }
+
+.card-bottom { display: flex; align-items: flex-start; margin-top: auto; }
+.stat-icon { width: 30px; height: 30px; margin-right: 10px; object-fit: contain; }
+
+.stat-desc {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #000; 
+    line-height: 1.2;
+    max-width: 90%;
+}
+
+/* P/L CARDS */
+.div6 { grid-area: 3 / 4 / 5 / 5; }
+.div7 { grid-area: 5 / 4 / 7 / 5; }
+
+.pl-card {
+    height: 230px; 
+    background-color: var(--bg-card);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid transparent;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    cursor: pointer;
+}
+
+.pl-card:hover { transform: scale(1.05); }
+.pl-title { font-size: 1.3rem; font-weight: 600; color: var(--text-muted); margin-bottom: 15px; }
+.pl-body { display: flex; align-items: center; }
+.pl-icon { width: 80px; height: auto; margin-right: 15px; }
+.pl-value { font-size: 2.5rem; font-weight: 700; color: var(--text-main); line-height: 1.1; }
+
+/* =========================================
+   5. STOCK ANALYSIS CARD (DIV 8)
+   ========================================= */
+.div8 { grid-area: 3 / 1 / 7 / 4; min-height: 480px; }
+.div8.stock-analysis-card {
+    display: flex; flex-direction: column; justify-content: flex-start; align-items: stretch;
+    padding: 25px; background-color: var(--stock-bg); border: 1px solid var(--border-color); border-radius: 15px;
+}
+
+.stock-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
+.stock-title { font-size: 1.5rem; font-weight: 700; color: var(--text-main); }
+.stock-controls { display: flex; align-items: center; gap: 15px; }
+.control-group label { font-size: 0.75rem; color: var(--text-muted); margin-right: 8px; font-weight: 600; }
+
+.stock-input {
+    background-color: #e0e0e0; border: none; border-radius: 6px; padding: 8px 12px;
+    font-size: 0.9rem; color: #000; font-weight: 700; font-family: inherit; outline: none; cursor: pointer;
+}
+input[type="date"].stock-input { text-transform: uppercase; color: #000; }
+
+.control-divider { width: 1px; height: 25px; background-color: var(--border-color); margin: 0 5px; }
+
+.get-stock-btn {
+    background-color: var(--neon-green); color: #000; border: none; border-radius: 6px; padding: 10px 20px;
+    font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.get-stock-btn:hover { transform: translateY(-2px); box-shadow: 0 0 15px rgba(163, 230, 53, 0.4); }
+.chart-area { flex-grow: 1; border-radius: 8px; background: radial-gradient(circle at center, #222 0%, #1a1b1f 100%); opacity: 0.8; }
+body.light-mode .chart-area { background: #f0f0f0; }
+
+/* =========================================
+   6. NEWS SECTION (DIV 10)
+   ========================================= */
+.div10 { grid-area: 7 / 1 / 9 / 5; min-height: 900px; }
+.content-box { background-color: var(--bg-content); border: 1px solid var(--neon-green); border-radius: 15px; color: var(--text-main); padding: 20px; }
+.div10.content-box { display: block; padding: 30px; overflow: visible; }
+.news-header { color: var(--text-main); font-size: 1.5rem; margin-bottom: 10px; }
+.news-divider { border: 0; height: 1px; background: var(--border-color); margin-bottom: 25px; }
+
+.news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
+.news-card {
+    background-color: var(--bg-card); border-radius: 10px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex; flex-direction: column; border: 1px solid var(--border-color);
+}
+.news-card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px var(--shadow-base); border-color: var(--neon-green); }
+.news-img-container { width: 100%; height: 180px; overflow: hidden; }
+.news-img { width: 100%; height: 100%; object-fit: cover; }
+.news-body { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
+.news-title { margin-bottom: 10px; line-height: 1.4; }
+.news-title a { color: var(--text-main); text-decoration: none; font-size: 1.1rem; font-weight: 600; transition: color 0.2s; }
+.news-title a:hover { color: var(--neon-green); }
+.news-summary { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px; flex-grow: 1; }
+.news-date { color: var(--text-muted); font-size: 0.8rem; margin-top: auto; }
+
+/* =========================================
+   7. LIGHT MODE IMAGE FILTERS
+   ========================================= */
+body.light-mode .pl-icon,
+body.light-mode .stat-icon {
+    filter: invert(1);
 }

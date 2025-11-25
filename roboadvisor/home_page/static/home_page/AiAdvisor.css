@@ -1,0 +1,276 @@
+/* =========================================
+   0. GLOBAL RESET & VARS
+   ========================================= */
+:root {
+    --neon-green: #a3e635; 
+    
+    /* AI Specific Vars (Kept Original) */
+    --gradient-top: #050805;
+    --gradient-bot: #8edd5d;
+    --text-white: #ffffff;
+    --input-bg: #2e2e2e;
+    --card-border: rgba(255, 255, 255, 0.6);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; 
+    background-color: #000;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff;
+}
+
+/* =========================================
+   1. FIXED SIDEBAR (EXACT COPY FROM PORTFOLIO/STOCKS)
+   ========================================= */
+.div9.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 20%; 
+    height: 100vh;
+    z-index: 100;
+    overflow-y: auto; 
+    background-color: #111; 
+    border-right: 1px solid #222;
+    padding: 30px; 
+    box-sizing: border-box; 
+    display: flex;
+    flex-direction: column;
+}
+
+/* Profile */
+.profile-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+.profile-pic {
+    width: 40px; height: 40px;
+    background-color: #555; border-radius: 50%;
+}
+.profile-name { 
+    font-weight: 600; font-size: 1rem; color: #ffffff; 
+}
+
+/* Search Bar (Exact Duplicate Style) */
+.search-wrapper { margin-bottom: 30px; }
+.search-bar {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: #fff !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 8px;
+    padding: 10px 15px;
+    outline: none;
+    box-sizing: border-box;
+}
+.search-bar::placeholder { color: #ccc !important; }
+
+/* Menu Label */
+.menu-label {
+    font-size: 0.8rem;
+    color: #fff;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+/* Nav Links - Spacing Logic */
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Matches Portfolio/Stocks */
+    flex-grow: 1;
+}
+
+.div9.sidebar .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    color: #ffffff !important; 
+}
+
+/* Icons - Normal State */
+.div9.sidebar .nav-item img {
+    width: 20px; 
+    height: 20px;
+    filter: brightness(0) invert(1) !important; 
+    opacity: 1 !important;
+}
+
+/* ACTIVE STATE */
+.div9.sidebar .nav-item.active {
+    background-color: var(--neon-green) !important; 
+    color: #000000 !important;            
+    box-shadow: 0 0 15px rgba(163, 230, 53, 0.4) !important;
+    font-weight: 700;
+}
+/* Active Icon turns black */
+.div9.sidebar .nav-item.active img {
+    filter: brightness(0) !important; 
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #fff;
+}
+
+/* =========================================
+   2. FIXED HEADER (EXACT COPY FROM PORTFOLIO/STOCKS)
+   ========================================= */
+.div5.header-section {
+    position: fixed;
+    top: 0;
+    left: 20%; 
+    width: 80%; 
+    height: 80px;
+    z-index: 90;
+    background-color: #000;
+    border-bottom: 1px solid #222;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.header-left { font-size: 1.2rem; display: flex; align-items: center; }
+
+/* Header Menu Label is Neon Green */
+.header-label.neon-text { 
+    color: var(--neon-green); 
+    font-weight: 600; 
+    letter-spacing: 1px;
+}
+
+.header-divider { margin: 0 10px; color: #555; }
+.header-current { font-weight: 600; color: #fff; }
+
+.header-right { 
+    display: flex; 
+    gap: 15px; 
+    align-items: center;
+}
+
+/* Icons have NO circle background */
+.icon-btn {
+    background: transparent; 
+    border: none;
+    width: 40px; 
+    height: 40px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: opacity 0.3s;
+    padding: 0;
+}
+.icon-btn:hover { opacity: 0.7; }
+
+.icon-btn img { 
+    width: 20px; height: 20px; 
+    filter: brightness(0) invert(1) !important; 
+}
+
+/* =========================================
+   3. AI WORKSPACE (ORIGINAL STYLES)
+   ========================================= */
+.ai-workspace {
+    margin-left: 20%; /* Matches sidebar width */
+    width: 80%;
+    margin-top: 80px; /* Push down by Header height */
+    min-height: calc(100vh - 80px); 
+    
+    /* The Gradient Background */
+    background: linear-gradient(180deg, var(--gradient-top) 20%, var(--gradient-bot) 100%);
+    
+    padding: 60px 80px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+}
+
+/* Typography */
+.ai-welcome-text { margin-bottom: 40px; }
+.ai-welcome-text h1 { color: var(--text-white); font-size: 3rem; font-weight: 700; margin: 0; }
+.ai-welcome-text h2 { color: var(--text-white); font-size: 3rem; font-weight: 700; margin: 5px 0 15px 0; }
+.ai-welcome-text p { color: #ccc; font-size: 1.1rem; font-weight: 500; margin: 0; }
+
+/* Prompt Grid */
+.prompts-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.prompt-card {
+    background: transparent;
+    border: 1.5px solid var(--card-border);
+    border-radius: 15px;
+    padding: 20px;
+    height: 120px;
+    color: var(--text-white);
+    text-align: left;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    display: flex; align-items: flex-start;
+}
+.prompt-card:hover { background: rgba(255, 255, 255, 0.1); transform: translateY(-2px); border-color: #fff; }
+
+/* Refresh Button */
+.refresh-section { margin-bottom: auto; }
+.refresh-btn {
+    background: none; border: none; color: #fff; font-size: 1rem;
+    cursor: pointer; display: flex; align-items: center; gap: 8px; opacity: 0.8;
+}
+.refresh-btn:hover { opacity: 1; text-decoration: underline; }
+
+/* Input Box Area */
+.ai-footer-container { margin-top: 40px; width: 100%; }
+.ai-search-box {
+    background-color: var(--input-bg);
+    border-radius: 20px;
+    padding: 20px 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    display: flex; flex-direction: column;
+}
+
+.input-top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.ai-main-input { background: transparent; border: none; color: #fff; font-size: 1.1rem; width: 100%; outline: none; }
+.ai-main-input::placeholder { color: #aaa; font-weight: 500; }
+
+.send-btn {
+    background: none; border: none; cursor: pointer; padding: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s ease;
+}
+.send-btn:hover { transform: scale(1.1); }
+.send-btn img { width: 24px; height: 24px; filter: brightness(0) invert(1) !important; opacity: 1; }
+
+.input-divider { height: 1px; background-color: #444; width: 100%; margin-bottom: 15px; }
+.input-actions { display: flex; gap: 20px; }
+.action-btn {
+    background: none; border: none; color: #aaa; font-size: 0.9rem; font-weight: 600;
+    cursor: pointer; display: flex; align-items: center; gap: 8px; padding: 0;
+}
+.action-btn:hover { color: #fff; }
+
+/* Light Mode Logic (Applied generally, but AI workspace usually stays dark per design) */
+body.light-mode { background-color: #f0f2f5; color: #000; }
+body.light-mode .div5.header-section { background-color: #fff; border-bottom: 1px solid #ddd; }
+body.light-mode .header-current { color: #000; }
+body.light-mode .icon-btn img { filter: brightness(0) !important; }

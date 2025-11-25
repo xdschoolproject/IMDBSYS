@@ -1,0 +1,387 @@
+/* =========================================
+   0. GLOBAL RESET & VARS
+   ========================================= */
+:root {
+    --neon-green: #a3e635; 
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; 
+    background-color: #000;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff;
+}
+
+/* =========================================
+   1. SIDEBAR (EXACT COPY FROM AI ADVISOR)
+   ========================================= */
+.div9.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 20%; 
+    height: 100vh;
+    z-index: 100;
+    overflow-y: auto; 
+    background-color: #111; 
+    border-right: 1px solid #222;
+    padding: 30px; 
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Profile */
+.profile-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+.profile-pic {
+    width: 40px; height: 40px;
+    background-color: #555; border-radius: 50%;
+}
+.profile-name { 
+    font-weight: 600; font-size: 1rem; color: #ffffff; 
+}
+
+/* Search Bar (Matches AI Advisor Logic) */
+.search-wrapper { margin-bottom: 30px; }
+.search-bar {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: #fff !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 8px;
+    padding: 10px 15px;
+    outline: none;
+    box-sizing: border-box;
+}
+.div9.sidebar .search-bar::placeholder { color: #ccc !important; }
+
+/* Menu Label */
+.menu-label { font-size: 0.8rem; color: #fff; margin-bottom: 15px; letter-spacing: 1px; }
+
+/* Nav Links Structure */
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex-grow: 1;
+}
+
+.div9.sidebar .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    
+    /* --- COPIED FROM AI ADVISOR CSS --- */
+    color: #ffffff !important;
+    transition: all 0.3s ease;
+}
+
+/* Inactive Icon State */
+.div9.sidebar .nav-item img {
+    width: 20px; height: 20px;
+    /* White icons */
+    filter: brightness(0) invert(1) !important;
+    opacity: 1 !important;
+}
+
+/* --- ACTIVE STATE (EXACTLY AS REQUESTED) --- */
+.div9.sidebar .nav-item.active {
+    background-color: var(--neon-green) !important; 
+    color: #000000 !important;            
+    border-radius: 30px !important;       
+    box-shadow: 0 0 15px rgba(163, 230, 53, 0.4) !important;
+    border-color: var(--neon-green) !important;
+    font-weight: 700;
+}
+
+/* Active Icon State (Black) */
+.div9.sidebar .nav-item.active img {
+    filter: brightness(0) !important; 
+}
+
+.sidebar-footer { margin-top: auto; font-weight: bold; letter-spacing: 2px; color: #fff; }
+
+/* =========================================
+   2. HEADER (EXACT COPY FROM AI ADVISOR)
+   ========================================= */
+.div5.header-section {
+    position: fixed;
+    top: 0;
+    left: 20%; 
+    width: 80%; 
+    height: 80px;
+    z-index: 90;
+    background-color: #000;
+    border-bottom: 1px solid #222;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.header-left { font-size: 1.2rem; display: flex; align-items: center; }
+.header-label { color: #888; }
+.header-divider { margin: 0 10px; color: #555; }
+.header-current { font-weight: 600; color: #fff; }
+
+.header-right { display: flex; gap: 15px; }
+
+/* Icon Buttons */
+.icon-btn {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    border-radius: 50%;
+    width: 40px; height: 40px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.3s;
+}
+.icon-btn:hover { background: rgba(255,255,255,0.2); }
+.icon-btn img { 
+    width: 20px; height: 20px; 
+    filter: brightness(0) invert(1) !important; 
+}
+
+/* =========================================
+   3. PARENT & STOCKS GRID (UPDATED)
+   ========================================= */
+/* Parent container below fixed header & sidebar */
+.parent {
+    position: absolute;       /* independent scrolling */
+    top: 80px;                /* height of the fixed header */
+    left: 20%;                /* width of the fixed sidebar */
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;         /* scrollable vertically */
+    padding: 30px;
+    box-sizing: border-box;
+    background-color: #000;
+}
+
+/* Stocks grid inside parent */
+.stocks-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.pf-card.large-box {
+    overflow-y: visible;   
+    width: auto;            /* let it shrink within parent */
+    padding: 50px;          /* internal padding stays */
+    
+    /* Margin outside the box */
+    margin: 10px 10px;      /* top/bottom 50px, left/right 50px */
+    
+    border-radius: 15px;
+    box-sizing: border-box;
+    background-color: #161618;
+}
+
+.pf-card h3 { 
+    margin-top: 0; 
+    color: var(--neon-green); 
+    margin-bottom: 50px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+}
+
+/* TRANSACTION BOX STYLES */
+.box-3 {
+    width: 100%;
+    min-height: 300px; /* Give it a set height */
+    overflow-y: auto;  /* Allow scrolling inside the box if list is long */
+}
+
+/* Light Mode Logic */
+body.light-mode { background-color: #f0f2f5; color: #000; }
+body.light-mode .parent { background-color: #f0f2f5; }
+body.light-mode .div5.header-section { background-color: #fff; border-bottom: 1px solid #ddd; }
+body.light-mode .header-current { color: #000; }
+body.light-mode .pf-card { background-color: #fff; border-color: #ddd; color: #000; }
+body.light-mode .icon-btn img { filter: brightness(0) !important; }
+
+/* =========================================
+   SETTINGS PAGE SPECIFIC STYLES
+   ========================================= */
+
+/* Container Layout */
+.settings-container {
+    display: flex;
+    gap: 50px;
+    padding: 20px;
+    margin-top: 20px;
+    align-items: flex-start;
+}
+
+/* --- Left Column: Avatar --- */
+.avatar-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+    flex-shrink: 0;
+}
+
+.avatar-circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: var(--neon-green); /* The green circle background */
+    border: 4px solid var(--neon-green);
+    overflow: hidden;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(163, 230, 53, 0.2);
+}
+
+/* If you don't have an image, this styles the silhouette placeholder */
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Optional: If using a transparent icon over green bg */
+    filter: brightness(0); 
+    opacity: 0.5;
+}
+
+.change-avatar-btn {
+    background-color: #d1d1d1;
+    color: #000;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.3s;
+}
+
+.change-avatar-btn:hover {
+    background-color: #fff;
+}
+
+/* --- Right Column: Form Grid --- */
+.settings-form {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns */
+    column-gap: 30px;
+    row-gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Span 2 columns for full-width inputs */
+.full-width {
+    grid-column: span 2;
+}
+
+/* Labels */
+.form-group label {
+    font-size: 0.95rem;
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* Inputs */
+.form-input {
+    background-color: #dcdcdc; /* Matches the gray in the image */
+    border: 2px solid transparent;
+    border-radius: 12px; /* Modern rounded corners */
+    padding: 12px 15px;
+    font-size: 1rem;
+    color: #000;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    background-color: #fff;
+    border-color: var(--neon-green);
+    box-shadow: 0 0 10px rgba(163, 230, 53, 0.3);
+}
+
+/* Read-only inputs (Date/Status) style */
+.form-input[readonly] {
+    background-color: #555;
+    color: #ccc;
+    cursor: default;
+}
+
+/* --- Update Button --- */
+.form-actions {
+    display: flex;
+    justify-content: flex-end; /* Align right */
+    margin-top: 20px;
+}
+
+.update-btn {
+    background-color: var(--neon-green);
+    color: #000;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 12px 40px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.update-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px var(--neon-green);
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 900px) {
+    .settings-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .settings-form {
+        width: 100%;
+        grid-template-columns: 1fr; /* Stack inputs on mobile */
+    }
+    .full-width {
+        grid-column: span 1;
+    }
+    .form-actions {
+        justify-content: center;
+    }
+}
+
+/* --- Light Mode Overrides --- */
+body.light-mode .settings-container {
+    background-color: #fff;
+}
+body.light-mode .form-group label {
+    color: #333;
+}
+body.light-mode .form-input {
+    background-color: #f0f2f5;
+    border: 1px solid #ccc;
+}
+body.light-mode .form-input[readonly] {
+    background-color: #e9ecef;
+    color: #666;
+}

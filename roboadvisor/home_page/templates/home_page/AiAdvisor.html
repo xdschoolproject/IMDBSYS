@@ -1,0 +1,167 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Advisor</title>
+    <link rel="stylesheet" href="{% static 'home_page/AiAdvisor.css' %}">
+</head>
+<body>
+
+    <!-- =========================
+         SIDEBAR (EXACT COPY FROM PORTFOLIO/STOCKS)
+         ========================= -->
+    <div class="div9 sidebar">
+        <div class="profile-section">
+            <div class="profile-pic"></div>
+            <span class="profile-name">Bryce Mendez</span>
+        </div>
+
+        <div class="search-wrapper">
+            <input type="text" class="search-bar" placeholder="Search...">
+        </div>
+
+        <div class="menu-label">MENU</div>
+        
+        <nav class="nav-links">
+            <!-- 1. Overview -->
+            <a href="{% url 'home' %}" class="nav-item">
+                <img src="{% static 'home_page/images/overviewbutton.png' %}" alt="icon" class="nav-icon">
+                Overview
+            </a>
+            
+            <!-- 2. AI Advisor (ACTIVE) -->
+            <a href="#" class="nav-item active">
+                <img src="{% static 'home_page/images/aibutton.png' %}" alt="icon" class="nav-icon">
+                AI Advisor
+            </a>
+            
+            <!-- 3. My Portfolio -->
+            <a href="{% url 'portfolio' %}" class="nav-item">
+                <img src="{% static 'home_page/images/portfoliobutton.png' %}" class="nav-icon">
+                My Portfolio
+            </a>
+
+            <!-- 4. My Assets -->
+            <a href="{% url 'stocks' %}" class="nav-item">
+                <img src="{% static 'home_page/images/assetsbutton.png' %}" alt="icon" class="nav-icon">
+                Stocks
+            </a>
+
+            <!-- 5. Activity Log -->
+            <a href="{% url 'account' %}" class="nav-item">
+                <img src="{% static 'home_page/images/logbutton.png' %}" class="nav-icon">
+                Manage Account
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">ROBOADVISOR</div>
+    </div>
+
+    <!-- =========================
+         HEADER (EXACT COPY FROM PORTFOLIO/STOCKS)
+         ========================= -->
+    <div class="div5 header-section">
+        <div class="header-left">
+            <!-- Neon Green MENU label -->
+            <span class="header-label neon-text">MENU</span>
+            <span class="header-divider">/</span>
+            <!-- Title changed to match page -->
+            <span class="header-current">AI Advisor</span>
+        </div>
+        <div class="header-right">
+            <button class="icon-btn" id="theme-toggle">
+                <img src="{% static 'home_page/images/night.png' %}" alt="Theme">
+            </button>
+            <button class="icon-btn">
+                <img src="{% static 'home_page/images/history.png' %}" alt="History">
+            </button>
+            <button class="icon-btn">
+                <img src="{% static 'home_page/images/web.png' %}" alt="Web">
+            </button>
+        </div>
+    </div>
+
+    <!-- =========================
+         AI WORKSPACE (KEPT EXACTLY AS IT WAS)
+         ========================= -->
+    <div class="ai-workspace">
+        
+        <!-- 1. Top Text Section -->
+        <div class="ai-welcome-text">
+            <h1>Hi there, Bryce</h1>
+            <h2>What would you like to know?</h2>
+            <p>Use one of the common prompts below to begin with.</p>
+        </div>
+
+        <!-- 2. Prompt Grid -->
+        <div class="prompts-grid">
+            <button class="prompt-card">
+                What are the safest investments for beginners?
+            </button>
+            <button class="prompt-card">
+                How can I start building an investment portfolio online?
+            </button>
+            <button class="prompt-card">
+                Recommend good online investments with low risk.
+            </button>
+            <button class="prompt-card">
+                Why is diversification important when investing money?
+            </button>
+        </div>
+
+        <!-- 3. Refresh Button -->
+        <div class="refresh-section">
+            <button class="refresh-btn">
+                <span class="refresh-icon">↻</span> refresh prompts
+            </button>
+        </div>
+
+        <!-- 4. Bottom Input Area -->
+        <div class="ai-footer-container">
+            <div class="ai-search-box">
+                <!-- Text Input -->
+                <div class="input-top-row">
+                    <input type="text" placeholder="Ask whatever you want..." class="ai-main-input">
+                    <button class="send-btn">
+                        <img src="{% static 'home_page/images/send.png' %}" alt="Send"> 
+                    </button>
+                </div>
+                
+                <!-- Divider Line -->
+                <div class="input-divider"></div>
+
+                <!-- Attachment Options -->
+                <div class="input-actions">
+                    <button class="action-btn">
+                        <span class="icon">📎</span> Add attachment
+                    </button>
+                    <button class="action-btn">
+                        <span class="icon">🖼️</span> Use Image
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const themeBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        if (localStorage.getItem('theme') === 'light') {
+            body.classList.add('light-mode');
+        }
+
+        themeBtn.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            if (body.classList.contains('light-mode')) {
+                localStorage.setItem('theme', 'light');
+            } else {
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,35 +1,53 @@
 import feedparser
 from django.shortcuts import render, redirect
 
-# Create your views here.
+# 1. HOME VIEW (Dashboard + News)
 def home(request):
-    # RSS feed URL for Yahoo News
     rss_url = "https://finance.yahoo.com/rss/topstories"
-    
-    # Fetch the RSS feed and parse it using feedparser
+    # Make sure 'feedparser' is installed: pip install feedparser
     feed = feedparser.parse(rss_url)
     
-    # Get the list of articles (limit to 6 latest articles)
     articles = []
-    for entry in feed.entries[:6]:  # You can adjust this limit as needed
+    # Limit to 6 articles
+    for entry in feed.entries[:6]:
         article = {
             'title': entry.title,
             'link': entry.link,
             'published': entry.published,
-            'image': None  # Default to no image
+            'summary': entry.summary if 'summary' in entry else '', 
+            'image': None 
         }
         
-        # Extract image URL from media:content
+        # Try to extract image from media_content if available
         if 'media_content' in entry:
             for media in entry.media_content:
                 if 'url' in media:
-                    article['image'] = media['url']  # Assign image URL to article
+                    article['image'] = media['url']
+                    break 
 
         articles.append(article)
 
     return render(request, 'home_page/home.html', {'articles': articles})
 
-
+# 2. STOCK ANALYSIS (Redirect to Streamlit)
 def stock_analysis(request):
-    # Redirect to the Streamlit app URL (assuming it's running on localhost:8501)
+    # Adjust localhost port if your Streamlit runs elsewhere
     return redirect("http://localhost:8501")
+
+# 3. AI ADVISOR VIEW
+def ai_advisor(request):
+    return render(request, 'home_page/AiAdvisor.html')
+
+# 4. PORTFOLIO VIEW
+def portfolio(request):
+    return render(request, 'home_page/portfolio.html')
+
+# 5. STOCKS / ASSETS VIEW
+def stocks(request):
+    return render(request, 'home_page/stocks.html')
+
+# 6. MANAGE ACCOUNT VIEW (NEWLY ADDED)
+def account(request):
+    # This assumes your HTML file is named 'account.html'
+    # If it is named 'manage_account.html', change it below.
+    return render(request, 'home_page/account.html')

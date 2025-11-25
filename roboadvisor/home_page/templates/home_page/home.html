@@ -1,81 +1,228 @@
-<!-- home_page/templates/home_page/home.html -->
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% load static %}
     <meta charset="UTF-8">
-    <title>Home Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoboAdvisor Dashboard</title>
+    <!-- Linked External CSS -->
     <link rel="stylesheet" href="{% static 'home_page/style.css' %}">
-
-    <style>
-        /* Simple menu bar styling */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-        }
-        nav {
-            background-color: #333;
-            overflow: hidden;
-        }
-        nav a {
-            float: left;
-            display: block;
-            color: #f2f2f2;
-            text-align: center;
-            padding: 14px 20px;
-            text-decoration: none;
-        }
-        nav a:hover {
-            background-color: #ddd;
-            color: black;
-        }
-        .content {
-            padding: 20px;
-        }
-    </style>
 </head>
 <body>
 
-<nav>
-    <a href="/">Home</a>
-    <a href="/admin/">Admin</a>
-    <a href="/stock-analysis/">Stock Analysis</a>  <!-- New link for Stock Analysis -->
-</nav>
+<div class="parent">
 
-<div class="content">
-    <h1>Welcome to the RoboAdvisor Home Page</h1>
-    <p>Use the menu above to navigate.</p>
-    
-    <!-- Latest Yahoo News Section -->
-    <hr>
-    <h2>Latest Yahoo News</h2>
-    <div class="row">
-        {% if articles %}
-            {% for article in articles %}
-                <div class="col-md-4 mb-4">
-                    <div class="card shadow-sm">
-                        <!-- Display the actual image from the RSS feed if available -->
-                        {% if article.image %}
-                            <img src="{{ article.image }}" class="card-img-top" alt="{{ article.title }}">
-                        {% else %}
-                            <img src="https://via.placeholder.com/300" class="card-img-top" alt="No Image">
-                        {% endif %}
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <a href="{{ article.link }}" target="_blank" class="text-decoration-none text-dark">{{ article.title }}</a>
-                            </h5>
-                            <p class="card-text">{{ article.summary|safe }}</p>
-                            <small class="text-muted">Published: {{ article.published }}</small>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        {% else %}
-            <p>No news available at the moment.</p>
-        {% endif %}
+    <!-- =========================
+         SIDEBAR (BLACK BACKGROUND)
+         ========================= -->
+    <div class="div9 sidebar">
+        <div class="profile-section">
+            <div class="profile-pic"></div>
+            <span class="profile-name">Bryce Mendez</span>
+        </div>
+
+        <div class="search-wrapper">
+            <input type="text" class="search-bar" placeholder="Search...">
+        </div>
+
+        <div class="menu-label">MENU</div>
+        
+        <nav class="nav-links">
+            <!-- 1. Overview (ACTIVE) -->
+            <a href="#" class="nav-item active">
+                <img src="{% static 'home_page/images/overviewbutton.png' %}" alt="icon" class="nav-icon">
+                Overview
+            </a>
+
+            <!-- 2. AI Advisor -->
+            <a href="{% url 'ai_advisor' %}" class="nav-item">
+                <img src="{% static 'home_page/images/aibutton.png' %}" alt="icon" class="nav-icon">
+                AI Advisor
+            </a>
+
+            <!-- 3. My Portfolio -->
+            <a href="{% url 'portfolio' %}" class="nav-item">
+                <img src="{% static 'home_page/images/portfoliobutton.png' %}" class="nav-icon">
+                My Portfolio
+            </a>
+
+            <!-- 4. My Assets -->
+            <a href="{% url 'stocks' %}" class="nav-item">
+                <img src="{% static 'home_page/images/assetsbutton.png' %}" alt="icon" class="nav-icon">
+                Stocks
+            </a>
+            
+            <!-- 5. Activity Log -->
+            <a href="{% url 'account' %}" class="nav-item">
+                <img src="{% static 'home_page/images/logbutton.png' %}" class="nav-icon">
+                Manage Account
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">ROBOADVISOR</div>
     </div>
+
+    <!-- =========================
+         HEADER
+         ========================= -->
+    <div class="div5 header-section">
+        <div class="header-left">
+            <span class="header-label neon-text">MENU</span>
+            <span class="header-divider">/</span>
+            <span id="header-title" class="header-current">Overview</span>
+        </div>
+        <div class="header-right">
+            <button class="icon-btn" id="theme-toggle">
+                <img src="{% static 'home_page/images/night.png' %}" alt="Theme">
+            </button>
+            <button class="icon-btn">
+                <img src="{% static 'home_page/images/history.png' %}" alt="History">
+            </button>
+            <button class="icon-btn">
+                <img src="{% static 'home_page/images/web.png' %}" alt="Web">
+            </button>
+        </div>
+    </div>
+    
+    <!-- =========================
+         DASHBOARD CONTENT
+         ========================= -->
+         
+    <!-- STATS (Div 1-4) -->
+    <div class="div1 stat-card">
+        <div class="card-top">Total Portfolio Value</div>
+        <div class="card-value">₱485,920</div>
+        <div class="card-bottom">
+            <img src="{% static 'home_page/images/value.png' %}" class="stat-icon" alt="icon">
+            <span class="stat-desc">Calculated from Investment values</span>
+        </div>
+    </div>
+
+    <div class="div2 stat-card">
+        <div class="card-top">Total Money Invested</div>
+        <div class="card-value">₱350,000</div>
+        <div class="card-bottom">
+            <img src="{% static 'home_page/images/invested.png' %}" class="stat-icon" alt="icon">
+            <span class="stat-desc">Sum of principal amounts</span>
+        </div>
+    </div>
+
+    <div class="div3 stat-card">
+        <div class="card-top">Number of Assets Held</div>
+        <div class="card-value">14 assets</div>
+        <div class="card-bottom">
+            <img src="{% static 'home_page/images/held.png' %}" class="stat-icon" alt="icon">
+            <span class="stat-desc">Count from Investment table</span>
+        </div>
+    </div>
+
+    <div class="div4 stat-card">
+        <div class="card-top">Total Profit / Loss</div>
+        <div class="sub-value">+₱135,920<br>(+12.4%)</div>
+        <div class="card-bottom">
+            <span class="stat-desc">(Current Value – Invested)</span>
+        </div>
+    </div>
+
+    <!-- MAIN CHART / STOCK ANALYSIS (Div 8) -->
+    <div class="div8 content-box stock-analysis-card">
+        <div class="stock-header">
+            <h2 class="stock-title">Stock Analysis</h2>
+            <form class="stock-controls">
+                <div class="control-group">
+                    <label>Stock Ticker:</label>
+                    <select class="stock-input">
+                        <option value="AAPL">AAPL</option>
+                        <option value="TSLA">TSLA</option>
+                        <option value="GOOGL">GOOGL</option>
+                        <option value="AMZN">AMZN</option>
+                        <option value="MSFT">MSFT</option>
+                    </select>
+                </div>
+                <div class="control-divider"></div>
+                <div class="control-group">
+                    <label>Start Date:</label>
+                    <input type="date" class="stock-input" value="2025-10-01">
+                </div>
+                <div class="control-group">
+                    <label>End Date:</label>
+                    <input type="date" class="stock-input" value="2025-10-31">
+                </div>
+                <button type="submit" class="get-stock-btn">Get Stock Data</button>
+            </form>
+        </div>
+        <div class="chart-area"></div>
+    </div>
+    
+    <!-- P/L CARDS (Div 6 & 7) -->
+    <div class="div6 pl-card">
+        <div class="pl-title">Number of Assets in Profit</div>
+        <br>
+        <div class="pl-body">
+            <img src="{% static 'home_page/images/up.png' %}" class="pl-icon" alt="Up">
+            <div class="pl-value">9 assets in <br> profit</div>
+        </div>
+    </div>
+
+    <div class="div7 pl-card">
+        <div class="pl-title">Number of Assets at a Loss</div>
+        <br>
+        <div class="pl-body">
+            <img src="{% static 'home_page/images/down.png' %}" class="pl-icon" alt="Down">
+            <div class="pl-value">5 assets at <br> a loss</div>
+        </div>
+    </div>
+    
+    <!-- NEWS SECTION (Div 10) -->
+    <div class="div10 content-box footer-area">
+        <div class="news-section-wrapper">
+            <h2 class="news-header">Latest Yahoo News</h2>
+            <hr class="news-divider">
+            <div class="news-grid">
+                {% if articles %}
+                    {% for article in articles %}
+                        <div class="news-card">
+                            <div class="news-img-container">
+                                {% if article.image %}
+                                    <img src="{{ article.image }}" class="news-img" alt="{{ article.title }}">
+                                {% else %}
+                                    <img src="https://via.placeholder.com/300" class="news-img" alt="No Image">
+                                {% endif %}
+                            </div>
+                            <div class="news-body">
+                                <h5 class="news-title">
+                                    <a href="{{ article.link }}" target="_blank">{{ article.title }}</a>
+                                </h5>
+                                <p class="news-summary">{{ article.summary|safe|truncatewords:20 }}</p>
+                                <small class="news-date">Published: {{ article.published }}</small>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No news available at the moment.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
 </div>
+
+<script>
+    // Theme Logic
+    const themeBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+    if (localStorage.getItem('theme') === 'light') {
+        body.classList.add('light-mode');
+    }
+    themeBtn.addEventListener('click', () => {
+        body.classList.toggle('light-mode');
+        if (body.classList.contains('light-mode')) {
+            localStorage.setItem('theme', 'light');
+        } else {
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+</script>
 
 </body>
 </html>
