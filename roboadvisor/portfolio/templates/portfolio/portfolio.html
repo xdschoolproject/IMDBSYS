@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portfolio</title>
-    <link rel="stylesheet" href="{% static 'home_page/portfolio.css' %}">
+    
+    <!-- Load Main Styles -->
+    <link rel="stylesheet" href="{% static 'home_page/style.css' %}">
+    <!-- Load Portfolio Styles -->
+    <link rel="stylesheet" href="{% static 'portfolio/portfolio.css' %}">
 </head>
 <body>
 
@@ -85,57 +89,59 @@
         </div>
     </div>
     
-    <!-- =========================
-         MAIN CONTENT BOX (Portfolio Specific Content)
-         ========================= -->
-    <div class="portfolio-main-content">
-        
-        <!-- 1. TOP LEFT: Summary -->
-        <div class="pf-card summary-card">
-            <div class="summary-header">
-                <span class="summary-label">My Portfolio</span>
-                <button class="edit-btn">
-                    <img src="{% static 'home_page/images/edit.png' %}" alt="Edit">
-                </button>
-            </div>
+<!-- =========================
+     MAIN CONTENT BOX (Portfolio Specific Content)
+     ========================= -->
+<div class="portfolio-main-content">
 
-            <div class="summary-value">₱485,920</div>
-            <div class="summary-date">Est. 11/24/25</div>
-
-            <div class="summary-actions">
-                <button class="action-btn btn-black">New Position</button>
-                <button class="action-btn btn-light">Rebalance</button>
-            </div>
+    <!-- 1. TOP LEFT: My Portfolio -->
+    <div class="pf-card summary-card">
+        <div class="summary-header">
+            <span class="summary-label">My Portfolio</span>
+            <button class="edit-btn">
+                <img src="{% static 'home_page/images/edit.png' %}" alt="Edit">
+            </button>
         </div>
 
-        <!-- 2. TOP RIGHT: Risk Level -->
-        <div class="pf-card risk-card">
-            <div class="risk-label">Risk Level: <strong>Conservative</strong></div>
-            <div class="robo-container">
-                <img src="{% static 'home_page/images/robo.png' %}" alt="Robo Advisor" class="robo-img">
-            </div>
+        <div class="summary-value">₱485,920</div>
+        <div class="summary-date">Est. 11/24/25</div>
+
+        <div class="summary-actions">
+            <button class="action-btn btn-black" 
+                    onclick="window.location.href='{% url 'add_position' %}'">
+                New Position
+            </button>
+            <button class="action-btn btn-light">Rebalance</button>
         </div>
-
-        <!-- 3. BOTTOM: Holdings Table -->
-        <div class="pf-card table-card">
-            <div class="table-tabs">
-                <span class="tab active">Asset</span>
-                <span class="tab">Sector</span>
-                <span class="tab">Holdings</span>
-                <span class="tab">Price Data</span>
-                <span class="tab">Performance (P/L)</span>
-                <span class="tab">Todays Move</span>
-                <span class="tab">Risk Rating</span>
-            </div>
-
-            <div class="table-responsive">
-                <table class="holdings-table">
-                    <!-- Table data goes here -->
-                </table>
-            </div>
-        </div>
-
     </div>
+
+    <!-- 2. TOP RIGHT: Risk Level -->
+    <div class="pf-card risk-card">
+        <div class="risk-label">Risk Level: <strong>Conservative</strong></div>
+        <div class="robo-container">
+            <img src="{% static 'home_page/images/robo.png' %}" alt="Robo Advisor" class="robo-img">
+        </div>
+    </div>
+
+    <!-- 3. BOTTOM: Holdings Table -->
+    <div class="pf-card table-card">
+        <div class="table-tabs">
+            <span class="tab active">Asset</span>
+            <span class="tab">Sector</span>
+            <span class="tab">Holdings</span>
+            <span class="tab">Price Data</span>
+            <span class="tab">Performance (P/L)</span>
+            <span class="tab">Todays Move</span>
+            <span class="tab">Risk Rating</span>
+        </div>
+
+        <div class="table-responsive">
+            <table class="holdings-table">
+                <!-- Table data goes here -->
+            </table>
+        </div>
+    </div>
+
 </div>
 
 <script>

@@ -275,3 +275,77 @@ body.light-mode .table-card { background-color: #fff; }
 body.light-mode .risk-card { background-color: #fff; }
 body.light-mode .table-tabs { background-color: #f9f9f9; border-bottom: 1px solid #eee; }
 body.light-mode .tab { border-right: 1px solid #eee; color: #000; }
+
+
+
+/* =========================================
+   Portfolio Main Content - Layout Fix
+   ========================================= */
+.portfolio-main-content {
+    display: grid;
+    grid-template-columns: 1fr 320px; /* left flexible, right fixed */
+    grid-auto-rows: minmax(200px, auto); /* auto height, ensures stretch */
+    gap: 20px;
+    padding: 30px;
+    width: 100%;
+    box-sizing: border-box;
+    align-items: stretch; /* makes both top cards same height */
+    justify-items: stretch;
+}
+
+/* My Portfolio (Add Position) form spans first column */
+.portfolio-main-content .summary-card {
+    grid-column: 1 / 2;
+    font-size: 1.2rem;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Risk Level card */
+.portfolio-main-content .risk-card {
+    grid-column: 2 / 3;
+    font-size: 1.2rem;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Table cards (like Added Stocks) span both columns */
+.portfolio-main-content .table-card {
+    grid-column: 1 / -1;
+}
+
+/* Form Inputs & Buttons Scaling */
+.portfolio-main-content .add-position-form input,
+.portfolio-main-content .add-position-form select,
+.portfolio-main-content .add-position-form textarea {
+    font-size: 1.1rem;
+    padding: 15px 20px;
+    border-radius: 10px;
+}
+
+.portfolio-main-content .add-position-form .btn-black,
+.portfolio-main-content .add-position-form .btn-light,
+.portfolio-main-content .action-btn {
+    font-size: 1.1rem;
+    padding: 15px 25px;
+    border-radius: 10px;
+}
+
+/* Additional optional styling for alignment */
+.summary-header,
+.risk-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.summary-actions {
+    display: flex;
+    gap: 15px;
+}
+
+

@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     # Your apps
     'home_page',
     'stock_analysis',
+    'portfolio',
+    'accounts',
 ]
 
 MIDDLEWARE = [

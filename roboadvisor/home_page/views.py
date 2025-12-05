@@ -40,7 +40,7 @@ def ai_advisor(request):
 
 # 4. PORTFOLIO VIEW
 def portfolio(request):
-    return render(request, 'home_page/portfolio.html')
+    return render(request, 'portfolio/portfolio.html')
 
 # 5. STOCKS / ASSETS VIEW
 def stocks(request):
