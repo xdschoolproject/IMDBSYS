@@ -17,7 +17,9 @@ urlpatterns = [
     # Stocks / Assets Page
     path('stocks/', views.stocks, name='stocks'),
 
-    # Manage Account Page (NEWLY ADDED)
-    # This 'name="account"' allows {% url 'account' %} to work in HTML
+    # Manage Account Page
+    # 'name="account"' creates the link for {% url 'account' %}
     path('account/', views.account, name='account'),
+    # Logout View
+    path('logout/', views.logout_view, name='logout'),
 ]

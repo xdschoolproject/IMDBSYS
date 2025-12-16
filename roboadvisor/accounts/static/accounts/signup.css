@@ -1,6 +1,6 @@
-/* static/accounts/login.css */
+/* signup.css */
 
-/* Define variables locally to ensure colors work immediately */
+/* Define variables locally so it works immediately */
 :root {
     --bg-body: #1a1a1a;
     --text-color: #ffffff;
@@ -15,29 +15,26 @@ body {
     background-color: var(--bg-body);
 }
 
-/* --- Layout Container --- */
-.login-container {
+.signup-container {
     display: flex;
     height: 100vh;
     width: 100vw;
     overflow: hidden;
 }
 
-.login-left, .login-right {
+.signup-left, .signup-right {
     width: 50%;
     position: relative;
 }
 
-/* --- Right Side (Image) --- */
-.login-right img {
+.signup-right img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
 }
 
-/* --- Left Side (Form) --- */
-.login-left {
+.signup-left {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -46,28 +43,26 @@ body {
     color: var(--text-color);
 }
 
-.login-left h2 {
+.signup-left h2 {
     margin-bottom: 2rem;
     font-size: 2rem;
-    color: var(--text-color);
 }
 
-.login-left form {
+.signup-left form {
     display: flex;
     flex-direction: column;
     width: 70%;
     max-width: 400px;
 }
 
-/* --- Labels & Inputs --- */
-.login-left label {
+.signup-left label {
     margin-bottom: 8px;
     font-weight: 600;
     font-size: 0.9rem;
     color: var(--text-color);
 }
 
-.login-left input {
+.signup-left input {
     padding: 12px 15px;
     margin-bottom: 15px;
     border-radius: 20px;
@@ -78,12 +73,11 @@ body {
     outline: none;
 }
 
-.login-left input:focus {
+.signup-left input:focus {
     border-color: var(--neon-green);
 }
 
-/* --- Primary Button (Login) --- */
-.login-left button {
+.signup-left button {
     padding: 12px;
     margin-top: 25px;
     border-radius: 20px;
@@ -96,11 +90,27 @@ body {
     transition: transform 0.2s ease;
 }
 
-.login-left button:hover {
+.signup-left button:hover {
     transform: translateY(-2px);
 }
 
-/* --- Separator --- */
+.login-redirect-btn {
+    display: inline-block;
+    padding: 12px;
+    border-radius: 20px;
+    background-color: #555;
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.login-redirect-btn:hover {
+    transform: translateY(-2px);
+    background-color: #666;
+}
+
 .separator-container {
     display: flex;
     align-items: center;
@@ -118,32 +128,4 @@ body {
     margin: 0 10px;
     font-weight: 600;
     color: var(--text-color);
-    font-size: 0.9rem;
-}
-
-/* --- Secondary Button (Sign Up Link) --- */
-.signup-btn {
-    display: inline-block;
-    padding: 12px;
-    border-radius: 20px;
-    background-color: #555555;
-    color: #fff;
-    font-weight: 700;
-    text-decoration: none;
-    text-align: center;
-    transition: transform 0.2s ease;
-    border: 1px solid transparent;
-}
-
-.signup-btn:hover {
-    transform: translateY(-2px);
-    background-color: #666;
-}
-
-/* --- Error Message --- */
-.error {
-    color: #ff4d4d;
-    margin-top: 15px;
-    text-align: center;
-    font-size: 0.9rem;
 }

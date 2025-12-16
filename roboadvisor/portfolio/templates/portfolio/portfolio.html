@@ -21,7 +21,7 @@
     <div class="div9 sidebar">
         <div class="profile-section">
             <div class="profile-pic"></div>
-            <span class="profile-name">Bryce Mendez</span>
+             <span class="profile-name">{{ user.get_full_name|default:user.username }}</span>
         </div>
 
         <div class="search-wrapper">
@@ -57,7 +57,7 @@
             
             <!-- 5. Activity Log -->
             <a href="{% url 'account' %}" class="nav-item">
-                <img src="{% static 'home_page/images/logbutton.png' %}" class="nav-icon">
+                <img src="{% static 'home_page/images/manageaccountbutton.png' %}" class="nav-icon">
                 Manage Account
             </a>
         </nav>

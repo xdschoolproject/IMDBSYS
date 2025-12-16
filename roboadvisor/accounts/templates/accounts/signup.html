@@ -1,7 +1,59 @@
-<form method="post">
-  {% csrf_token %}
-  <input type="text" name="username" placeholder="Username" required>
-  <input type="email" name="email" placeholder="Email" required>
-  <input type="password" name="password" placeholder="Password" required>
-  <button type="submit">Sign Up</button>
-</form>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <!-- General theme CSS -->
+    <link rel="stylesheet" href="{% static 'home_page/style.css' %}">
+    <!-- Page-specific CSS -->
+    <link rel="stylesheet" href="{% static 'accounts/signup.css' %}">
+</head>
+<body>
+    <div class="signup-container">
+        <!-- Left side: Sign Up form -->
+        <div class="signup-left">
+            <h2>Create Account</h2>
+            <form method="post">
+                {% csrf_token %}
+                
+                <!-- Username -->
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Choose a username" required>
+
+                <!-- Email (New Field) -->
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+                <!-- Password -->
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Create a password" required>
+                
+                <!-- Sign Up Button (Primary) -->
+                <button type="submit">Sign Up</button>
+                
+                <!-- Horizontal Separator -->
+                <div class="separator-container">
+                    <hr class="separator-line">
+                    <span class="separator-text">Or</span>
+                    <hr class="separator-line">
+                </div>
+
+                <!-- Link to Login (Secondary) -->
+                <a href="{% url 'login' %}" class="login-redirect-btn">Login</a>
+
+                <!-- Error message -->
+                {% if error %}
+                    <p class="error">{{ error }}</p>
+                {% endif %}
+            </form>
+        </div>
+
+        <!-- Right side: Image -->
+        <div class="signup-right">
+            <!-- You might want to use a slightly different image to distinguish it from login -->
+             <img src="{% static 'home_page/images/login-image.jpg' %}" alt="Login Image">
+        </div>
+    </div>
+</body>
+</html>

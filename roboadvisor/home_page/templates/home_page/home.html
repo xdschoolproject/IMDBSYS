@@ -7,6 +7,9 @@
     <title>RoboAdvisor Dashboard</title>
     <!-- Linked External CSS -->
     <link rel="stylesheet" href="{% static 'home_page/style.css' %}">
+    
+    <!-- 1. LOAD CHART.JS LIBRARY -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -18,7 +21,7 @@
     <div class="div9 sidebar">
         <div class="profile-section">
             <div class="profile-pic"></div>
-            <span class="profile-name">Bryce Mendez</span>
+            <span class="profile-name">{{ user.get_full_name|default:user.username }}</span>
         </div>
 
         <div class="search-wrapper">
@@ -53,7 +56,7 @@
 
             <!-- 5. Activity Log -->
             <a href="{% url 'account' %}" class="nav-item">
-                <img src="{% static 'home_page/images/logbutton.png' %}" class="nav-icon">
+                <img src="{% static 'home_page/images/manageaccountbutton.png' %}" class="nav-icon">
                 Manage Account
             </a>
         </nav>
@@ -126,31 +129,14 @@
     <!-- MAIN CHART / STOCK ANALYSIS (Div 8) -->
     <div class="div8 content-box stock-analysis-card">
         <div class="stock-header">
-            <h2 class="stock-title">Stock Analysis</h2>
-            <form class="stock-controls">
-                <div class="control-group">
-                    <label>Stock Ticker:</label>
-                    <select class="stock-input">
-                        <option value="AAPL">AAPL</option>
-                        <option value="TSLA">TSLA</option>
-                        <option value="GOOGL">GOOGL</option>
-                        <option value="AMZN">AMZN</option>
-                        <option value="MSFT">MSFT</option>
-                    </select>
-                </div>
-                <div class="control-divider"></div>
-                <div class="control-group">
-                    <label>Start Date:</label>
-                    <input type="date" class="stock-input" value="2025-10-01">
-                </div>
-                <div class="control-group">
-                    <label>End Date:</label>
-                    <input type="date" class="stock-input" value="2025-10-31">
-                </div>
-                <button type="submit" class="get-stock-btn">Get Stock Data</button>
-            </form>
+            <!-- Updated title to reflect it is a general overview or specific stock -->
+            <h2 class="stock-title">Stock Analysis</h2> 
         </div>
-        <div class="chart-area"></div>
+        
+        <!-- 2. CANVAS AREA (Added relative position/height inline for safety) -->
+        <div class="chart-area" style="position: relative; height: 300px; width: 100%;">
+            <canvas id="dashboardStockChart"></canvas>
+        </div>
     </div>
     
     <!-- P/L CARDS (Div 6 & 7) -->
@@ -221,6 +207,49 @@
             localStorage.setItem('theme', 'dark');
         }
     });
+</script>
+
+<!-- 3. CHART SCRIPT (Moved from Stocks page) -->
+<script>
+    // Since we used json.dumps in Python, the data is already a valid JS array string.
+    // We just need 'safe' to prevent Django from escaping the quotes.
+    const rawLabels = {{ chart_labels|safe|default:"[]" }};
+    const rawData = {{ chart_data|safe|default:"[]" }};
+
+    const ctx = document.getElementById('dashboardStockChart').getContext('2d');
+
+    if (ctx) {
+        const stockChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: rawLabels,
+                datasets: [{
+                    label: 'Close Price',
+                    data: rawData,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    fill: true,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: true }
+                },
+                scales: {
+                    x: { 
+                        title: { display: true, text: 'Date' },
+                        grid: { display: false } 
+                    },
+                    y: { 
+                        title: { display: true, text: 'Close Price' } 
+                    }
+                }
+            }
+        });
+    }
 </script>
 
 </body>

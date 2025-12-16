@@ -11,30 +11,31 @@
 </head>
 <body>
     <div class="login-container">
-        <!-- Left side: login form -->
+        <!-- Left side: Login form -->
         <div class="login-left">
             <h2>Login</h2>
             <form method="post">
                 {% csrf_token %}
-                <!-- Username field with label -->
-                <label for="username">Username</label> <!-- Add this line -->
-                <input type="text" id="username" name="username" placeholder="Enter your username" required> <!-- Updated input -->
-
-                <!-- Password field with label -->
-                <label for="password">Password</label> <!-- Add this line -->
-                <input type="password" id="password" name="password" placeholder="Enter your password" required> <!-- Updated input -->
                 
-                <!-- Login button -->
+                <!-- Username -->
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+                <!-- Password -->
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                
+                <!-- Primary Action: Login Button -->
                 <button type="submit">Login</button>
                 
-                <!-- Horizontal line with text -->
+                <!-- Separator -->
                 <div class="separator-container">
                     <hr class="separator-line">
                     <span class="separator-text">Or</span>
                     <hr class="separator-line">
                 </div>
-                <!-- Sign Up button -->
-                <!-- Changed button inside link to proper link button -->
+
+                <!-- Secondary Action: Link to Sign Up -->
                 <a href="{% url 'signup' %}" class="signup-btn">Sign Up</a>
 
                 <!-- Error message -->
@@ -44,8 +45,9 @@
             </form>
         </div>
 
-        <!-- Right side: image -->
+        <!-- Right side: Image -->
         <div class="login-right">
+            <!-- Ensure you have this image, or reuse signup-image.jpg -->
             <img src="{% static 'home_page/images/login-image.jpg' %}" alt="Login Image">
         </div>
     </div>

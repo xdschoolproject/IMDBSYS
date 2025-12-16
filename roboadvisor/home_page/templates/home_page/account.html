@@ -7,19 +7,74 @@
     <title>Manage Account</title>
     
     <link rel="stylesheet" href="{% static 'home_page/account.css' %}">
+    
+    <style>
+        /* Message Styles */
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+        .alert-success {
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+        .alert-error {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
 
+        /* BUTTON CONTAINER */
+        .form-actions {
+            display: flex;
+            gap: 15px; /* Space between buttons */
+            margin-top: 20px;
+        }
+
+        /* SHARED BUTTON STYLES */
+        .update-btn, .logout-btn {
+            flex: 1;             /* Makes them equal width */
+            padding: 12px 0;     /* Vertical padding */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            transition: background-color 0.3s;
+            /* Ensure font family matches the rest of the site */
+            font-family: inherit; 
+        }
+
+        /* UPDATE BUTTON (Green) */
+        .update-btn {
+            background-color: #4CAF50;
+        }
+        .update-btn:hover {
+            background-color: #45a049;
+        }
+
+        /* LOGOUT BUTTON (Red) */
+        .logout-btn {
+            background-color: #f44336;
+        }
+        .logout-btn:hover {
+            background-color: #d32f2f;
+        }
+    </style>
 </head>
 <body>
 
 <div class="parent">
 
-    <!-- =========================
-         SIDEBAR (EXACT COPY FROM AI ADVISOR)
-         ========================= -->
+    <!-- SIDEBAR -->
     <div class="div9 sidebar">
         <div class="profile-section">
             <div class="profile-pic"></div>
-            <span class="profile-name">Bryce Mendez</span>
+            <span class="profile-name">{{ user.get_full_name|default:user.username }}</span>
         </div>
 
         <div class="search-wrapper">
@@ -29,33 +84,24 @@
         <div class="menu-label">MENU</div>
         
         <nav class="nav-links">
-            <!-- 1. Overview -->
             <a href="{% url 'home' %}" class="nav-item">
                 <img src="{% static 'home_page/images/overviewbutton.png' %}" class="nav-icon">
                 Overview
             </a>
-            
-            <!-- 2. AI Advisor -->
             <a href="{% url 'ai_advisor' %}" class="nav-item">
                 <img src="{% static 'home_page/images/aibutton.png' %}" class="nav-icon">
                 AI Advisor
             </a>
-            
-            <!-- 3. My Portfolio -->
             <a href="{% url 'portfolio' %}" class="nav-item">
                 <img src="{% static 'home_page/images/portfoliobutton.png' %}" class="nav-icon">
                 My Portfolio
             </a>
-
-            <!-- 4. My Assets (ACTIVE - This is the only change) -->
             <a href="{% url 'stocks' %}" class="nav-item">
                 <img src="{% static 'home_page/images/assetsbutton.png' %}" class="nav-icon">
                 Stocks
             </a>
-
-            <!-- 5. Activity Log -->
-            <a href="#" class="nav-item active">
-                <img src="{% static 'home_page/images/logbutton.png' %}" class="nav-icon">
+            <a href="{% url 'account' %}" class="nav-item active">
+                <img src="{% static 'home_page/images/manageaccountbutton.png' %}" class="nav-icon">
                 Manage Account
             </a>
         </nav>
@@ -63,96 +109,97 @@
         <div class="sidebar-footer">ROBOADVISOR</div>
     </div>
 
-    <!-- =========================
-         HEADER (EXACT COPY FROM AI ADVISOR)
-         ========================= -->
+    <!-- HEADER -->
     <div class="div5 header-section">
         <div class="header-left">
             <span class="header-label">MENU</span>
             <span class="header-divider">/</span>
-            <!-- Title changed to match page -->
-            <span class="header-current">Stocks & Assets</span>
+            <span class="header-current">Manage Account</span>
         </div>
         <div class="header-right">
             <button class="icon-btn" id="theme-toggle">
                 <img src="{% static 'home_page/images/night.png' %}" alt="Theme">
             </button>
-            <button class="icon-btn">
-                <img src="{% static 'home_page/images/history.png' %}" alt="History">
-            </button>
-            <button class="icon-btn">
-                <img src="{% static 'home_page/images/web.png' %}" alt="Web">
-            </button>
         </div>
     </div>
 
-<!-- =========================
-     CONTENT AREA (Stocks Grid)
-     ========================= -->
+<!-- CONTENT -->
 <div class="stocks-grid">
     <div class="pf-card large-box"> 
         <h3>Account Settings</h3>
         
         <div class="settings-container">
-            <!-- Left Side: Avatar -->
+
+            <!-- MESSAGES -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {% if message.tags == 'error' %}alert-error{% else %}alert-success{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <!-- AVATAR -->
             <div class="avatar-column">
                 <div class="avatar-circle">
-                    <!-- Placeholder icon or user image -->
                     <img src="{% static 'home_page/images/night.png' %}" alt="Avatar" class="avatar-img">
                 </div>
-                <button class="change-avatar-btn">Change Avatar</button>
+                <button type="button" class="change-avatar-btn">Change Avatar</button>
             </div>
 
-            <!-- Right Side: Form -->
-            <form class="settings-form">
-                <!-- User Name (Full Width) -->
+            <!-- FORM -->
+            <form method="POST" class="settings-form">
+                {% csrf_token %}
+
+                <!-- Username -->
                 <div class="form-group full-width">
                     <label>User Name:</label>
-                    <input type="text" value="Bryce Mendez" class="form-input">
+                    <input type="text" name="username" value="{{ user.username }}" class="form-input" required>
                 </div>
 
-                <!-- First Name & Last Name (Split) -->
+                <!-- First / Last Name -->
                 <div class="form-group">
                     <label>First Name:</label>
-                    <input type="text" value="Bryce" class="form-input">
+                    <input type="text" name="first_name" value="{{ user.first_name }}" class="form-input">
                 </div>
                 <div class="form-group">
                     <label>Last Name:</label>
-                    <input type="text" value="Mendez" class="form-input">
+                    <input type="text" name="last_name" value="{{ user.last_name }}" class="form-input">
                 </div>
 
-                <!-- Portfolio Name (Full Width) -->
+                <!-- Email -->
                 <div class="form-group full-width">
-                    <label>Portfolio Name:</label>
-                    <input type="text" value="High Growth Tech" class="form-input">
-                </div>
-
-                <!-- Email & Phone (Split) -->
-                <div class="form-group">
                     <label>Email:</label>
-                    <input type="email" value="bryce@example.com" class="form-input">
-                </div>
-                <div class="form-group">
-                    <label>Phone Number:</label>
-                    <input type="tel" value="+1 234 567 890" class="form-input">
+                    <input type="email" name="email" value="{{ user.email }}" class="form-input">
                 </div>
 
-                <!-- Created Date (Full Width - Read Only) -->
+                <!-- Created Date -->
                 <div class="form-group full-width">
                     <label>Created Date:</label>
-                    <input type="text" value="November 20, 2023" class="form-input" readonly>
+                    <input type="text"
+                           value="{{ user.date_joined|date:'F d, Y' }}"
+                           class="form-input"
+                           readonly>
                 </div>
 
-                <!-- Account Status (Full Width - Read Only) -->
+                <!-- Account Status -->
                 <div class="form-group full-width">
                     <label>Account Status:</label>
-                    <input type="text" value="Active - Premium" class="form-input" readonly>
+                    <input type="text" value="Active" class="form-input" readonly>
                 </div>
 
-                <!-- Update Button (Bottom Right) -->
+                <!-- BUTTONS CONTAINER -->
                 <div class="form-actions full-width">
+                    <!-- 1. Update Button (Submit) -->
                     <button type="submit" class="update-btn">Update</button>
+                    
+                    <!-- 2. Logout Button (Real Button, JavaScript Redirect) -->
+                    <!-- type="button" prevents it from submitting the form -->
+                    <button type="button" class="logout-btn" onclick="window.location.href='{% url 'logout' %}'">
+                        Logout
+                    </button>
                 </div>
+
             </form>
         </div>
     </div>
@@ -168,11 +215,9 @@
 
     themeBtn.addEventListener('click', () => {
         body.classList.toggle('light-mode');
-        if (body.classList.contains('light-mode')) {
-            localStorage.setItem('theme', 'light');
-        } else {
-            localStorage.setItem('theme', 'dark');
-        }
+        localStorage.setItem('theme',
+            body.classList.contains('light-mode') ? 'light' : 'dark'
+        );
     });
 </script>
 
